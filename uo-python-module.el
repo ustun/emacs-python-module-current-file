@@ -8,11 +8,11 @@
 (require 's)
 
 (defun uo-rel-file-path ()
-  (let ((root (expand-file-name (vc-git-root (buffer-file-name)))))
-    (cadr (s-split root (buffer-file-name)))))
+  (let ((root (vc-git-root (buffer-file-name))))
+    (file-relative-name (buffer-file-name) root)))
 
 (defun uo-rel-path-to-dotted (rel-file-path)
-  (s-replace ".py" "" (s-replace "/" "." rel-file-path)))
+  (file-name-sans-extension (s-replace "/" "." rel-file-path)))
 
 (defun uo-python-module-for-file ()
   (interactive)
